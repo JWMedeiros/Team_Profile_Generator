@@ -1,4 +1,3 @@
-const { describe } = require('yargs');
 const Employee = require('../lib/Employee');
 
 describe('Instantiation', () => {
@@ -9,16 +8,19 @@ describe('Instantiation', () => {
         expect(employee.email).toEqual("string@string.com")
     });
     it('should not let the user send an invalid name.', ()=>{
-        let employee1=new Employee(13,13,'String@string.com')
-        expect(employee1).toThrow();
+        const cb=()=>new Employee(13,13,'String@string.com')
+        const err = new Error("Expected parameter 'name' to be a non-empty string");
+        expect(cb).toThrow(err);
     });
     it('should not let the user send an invalid id.', ()=>{
-        let employee2= new Employee('Tim','Jim','Strig@string.com')
-        expect(employee2).toThrow();
+        const cb=()=> new Employee('Tim','Jim','Strig@string.com')
+        const err =new Error("Expected parameter 'id' to be a non-negative number");
+        expect(cb).toThrow(err);
     });
     it('should not let the user send an invalid Email.', ()=>{
-        let employee3= new Employee('Tim',13,'sdfafd')
-        expect(employee3).toThrow();
+        const cb=()=> new Employee('Tim',13,'sdfafd')
+        const err=new Error("Expected parameter 'email' to be a non-empty string with an @ sign and . address");
+        expect(cb).toThrow(err);
     });
 });
 
